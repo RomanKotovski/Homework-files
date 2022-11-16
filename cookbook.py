@@ -1,14 +1,13 @@
-cookbook = []
-with open ('recipes.txt', 'r', encoding='utf8') as cookbook_list:
-    for line in cookbook_list:
+
+with open ('recipes.txt', 'r', encoding='utf8') as file:
+    dict = {}
+    for line in file:
         dish_name = line.strip()
-        cook = {"Название блюда": dish_name, "Рецепт": []}
-        ingredient_quantity = cookbook_list.readline()
-        for i in range(int(ingredient_quantity)):
-            quantity = cookbook_list.readline()
-            ingredient_name, quantity, measure = quantity.split(' | ')
-            ingredients_name = {'Название ингредиента':ingredient_name, 'количество': quantity, 'Единица измерения': measure.strip()}
-            cook["Рецепт"].append(ingredients_name)
-        cookbook_list.readline()
-        cookbook.append(cook)
-print(cookbook)
+        dict[dish_name] = []
+        for i in range(int(file.readline())):
+            recept = file.readline().split(' | ')
+            dict[dish_name].append({'ingredient_name':recept[0], 'quantity':int(recept[1]), 'measure':recept[2].strip()})
+        file.readline()
+print(dict)
+
+
